@@ -18,5 +18,5 @@ interface ReferralRepositoryInterface
      * @return ReferralSearchResultsInterface
      * @throws LocalizedException
      */
-    public function getListByCustomerId(int $customerId): ReferralSearchResultsInterface;
+    public function getListByCustomerId(int $customerId);
 }

@@ -64,7 +64,7 @@ class ReferralRepository implements ReferralRepositoryInterface
      *
      * {@inheritdoc}
      */
-    public function getListByCustomerId($customerId): ReferralSearchResultsInterface
+    public function getListByCustomerId(int $customerId): ReferralSearchResultsInterface
     {
         // It's validated that the user id is correct.
         if (!is_numeric($customerId) || (int)$customerId <= 0) {

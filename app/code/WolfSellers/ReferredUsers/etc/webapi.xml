@@ -3,7 +3,7 @@
     <route url="/V1/referrals/:customerId" method="GET">
         <service class="WolfSellers\ReferredUsers\Api\ReferralRepositoryInterface" method="getListByCustomerId"/>
         <resources>
-            <resource ref="Wolf_Referrals::referrals_view"/>
+            <resource ref="WolfSellers_ReferredUsers::referrals_view"/>
         </resources>
     </route>
 </routes>

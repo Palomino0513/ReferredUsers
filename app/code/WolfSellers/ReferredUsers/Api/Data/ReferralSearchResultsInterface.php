@@ -13,14 +13,14 @@ interface ReferralSearchResultsInterface extends SearchResultsInterface
     /**
      * Get list of referrals.
      *
-     * @return ReferralInterface[]
+     * @return \WolfSellers\ReferredUsers\Api\Data\ReferralInterface[]
      */
     public function getItems();
 
     /**
      * Set list of referrals.
      *
-     * @param ReferralInterface[] $items
+     * @param \WolfSellers\ReferredUsers\Api\Data\ReferralInterface[] $items
      * @return $this
      */
     public function setItems(array $items);
