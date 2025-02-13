@@ -1,0 +1,36 @@
+<?php
+/** @var \WolfSellers\ReferredUsers\Block\Account\Edit $block */
+
+$referral = $block->getReferral();
+if (!$referral) {
+    echo __('No referral found.');
+    return;
+}
+
+?>
+
+<form action="<?= $block->getUrl('referrals/index/update') ?>" method="post">
+    <?= $block->getBlockHtml('formkey') ?>
+    <input type="hidden" name="entity_id" value="<?= $referral->getId() ?>" />
+    <div class="field">
+        <label for="first_name"><?= __('Name') ?></label>
+        <input type="text" name="first_name" id="first_name" value="<?= $block->escapeHtml($referral->getFirstName()) ?>" required>
+    </div>
+    <div class="field">
+        <label for="last_name"><?= __('Last Name') ?></label>
+        <input type="text" name="last_name" id="last_name" value="<?= $block->escapeHtml($referral->getLastName()) ?>" required>
+    </div>
+    <div class="field">
+        <label for="email"><?= __('Email') ?></label>
+        <input type="email" name="email" id="email" value="<?= $block->escapeHtml($referral->getEmail()) ?>" required>
+    </div>
+    <div class="field">
+        <label for="phone"><?= __('Phone') ?></label>
+        <input type="text" name="phone" id="phone" value="<?= $block->escapeHtml($referral->getPhone()) ?>">
+    </div>
+    <div class="actions-toolbar">
+        <button type="submit" class="action primary">
+            <?= __('Update') ?>
+        </button>
+    </div>
+</form>
