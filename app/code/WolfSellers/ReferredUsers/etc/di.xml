@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="WolfSellers\ReferredUsers\Api\Data\ReferralInterface" type="WolfSellers\ReferredUsers\Model\Referral" />
+    <preference for="WolfSellers\ReferredUsers\Api\Data\ReferralSearchResultsInterface" type="WolfSellers\ReferredUsers\Model\ReferralSearchResults" />
+    <preference for="WolfSellers\ReferredUsers\Api\ReferralRepositoryInterface" type="WolfSellers\ReferredUsers\Model\ReferralRepository" />
+    <type name="WolfSellers\ReferredUsers\Model\ReferralRepository">
+        <arguments>
+            <argument name="authorization" xsi:type="object">Magento\Framework\AuthorizationInterface</argument>
+        </arguments>
+    </type>
+</config>
