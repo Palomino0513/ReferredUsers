@@ -19,4 +19,13 @@ interface ReferralRepositoryInterface
      * @throws LocalizedException
      */
     public function getListByCustomerId(int $customerId);
+
+    /**
+     * Delete record of referred user.
+     *
+     * @param int $referralId
+     * @return bool true on success
+     * @throws LocalizedException
+     */
+    public function delete(int $referralId);
 }

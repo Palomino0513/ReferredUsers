@@ -1,7 +1,15 @@
 <?xml version="1.0"?>
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi/etc/webapi.xsd">
+    <!-- Get referred users by a client id -->
     <route url="/V1/referrals/:customerId" method="GET">
         <service class="WolfSellers\ReferredUsers\Api\ReferralRepositoryInterface" method="getListByCustomerId"/>
+        <resources>
+            <resource ref="WolfSellers_ReferredUsers::referrals_view"/>
+        </resources>
+    </route>
+    <!-- Delete a user referred by their ID -->
+    <route url="/V1/referral/:referralId" method="DELETE">
+        <service class="WolfSellers\ReferredUsers\Api\ReferralRepositoryInterface" method="delete"/>
         <resources>
             <resource ref="WolfSellers_ReferredUsers::referrals_view"/>
         </resources>

@@ -70,7 +70,7 @@ class ReferralRepository implements ReferralRepositoryInterface
         if (!is_numeric($customerId) || (int)$customerId <= 0) {
             throw new LocalizedException(__('Invalid customer ID'));
         }
-        // It validates that we're in the context of the Magento administrator.
+        // The user type is validated to access the API.
         if ($this->userContext->getUserType() != UserContextInterface::USER_TYPE_ADMIN) {
             throw new AuthorizationException(__('Access denied.'));
         }
@@ -87,5 +87,37 @@ class ReferralRepository implements ReferralRepositoryInterface
         $searchResults->setTotalCount($collection->getSize());
         // The collection is returned.
         return $searchResults;
+    }
+
+    /**
+     * Function to delete record.
+     *
+     * @param int $referralId
+     * @return bool true on success
+     * @throws AuthorizationException
+     * @throws LocalizedException
+     */
+    public function delete(int $referralId): bool
+    {
+        // It's validated that the referred users id is correct.
+        if (!is_numeric($referralId) || (int)$referralId <= 0) {
+            throw new LocalizedException(__('Invalid customer ID'));
+        }
+        // The user type is validated to access the API.
+        if ($this->userContext->getUserType() != UserContextInterface::USER_TYPE_ADMIN) {
+            throw new AuthorizationException(__('Access denied.'));
+        }
+        // It's validated that the user has the permissions to access the referred users.
+        if (!$this->authorization->isAllowed('WolfSellers_ReferredUsers::referrals_view')) {
+            throw new AuthorizationException(__('You do not have permission to view referrals.'));
+        }
+        // The referred user's record is obtained and validated.
+        $referral = $this->referralFactory->create()->load($referralId);
+        if (!$referral->getId()) {
+            throw new LocalizedException(__('The referred user doesn\'t exist.'));
+        }
+        // The referred user is deleted.
+        $referral->delete();
+        return true;
     }
 }
