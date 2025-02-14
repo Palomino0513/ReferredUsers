@@ -7,6 +7,13 @@
             <resource ref="WolfSellers_ReferredUsers::referrals_view"/>
         </resources>
     </route>
+    <!-- Get referred users by id -->
+    <route url="/V1/referral/:id" method="GET">
+        <service class="WolfSellers\ReferredUsers\Api\ReferralRepositoryInterface" method="getById"/>
+        <resources>
+            <resource ref="WolfSellers_ReferredUsers::referrals_view"/>
+        </resources>
+    </route>
     <!-- Delete a user referred by their ID -->
     <route url="/V1/referral/:referralId" method="DELETE">
         <service class="WolfSellers\ReferredUsers\Api\ReferralRepositoryInterface" method="delete"/>

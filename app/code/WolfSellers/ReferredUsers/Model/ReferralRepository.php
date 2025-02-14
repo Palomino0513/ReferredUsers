@@ -7,6 +7,7 @@ use Magento\Framework\Exception\AuthorizationException;
 use Magento\Authorization\Model\UserContextInterface;
 use Magento\Framework\AuthorizationInterface;
 use Magento\Framework\Exception\LocalizedException;
+use WolfSellers\ReferredUsers\Api\Data\ReferralInterface;
 use WolfSellers\ReferredUsers\Api\Data\ReferralSearchResultsInterface;
 use WolfSellers\ReferredUsers\Api\ReferralRepositoryInterface;
 use WolfSellers\ReferredUsers\Api\Data\ReferralInterfaceFactory;
@@ -87,6 +88,37 @@ class ReferralRepository implements ReferralRepositoryInterface
         $searchResults->setTotalCount($collection->getSize());
         // The collection is returned.
         return $searchResults;
+    }
+
+    /**
+     * Function to return referral user.
+     *
+     * @param int $id
+     * @return ReferralInterface
+     * @throws AuthorizationException
+     * * @throws LocalizedException
+     */
+    public function getById(int $id): ReferralInterface
+    {
+        // It's validated that the referred users id is correct.
+        if (!is_numeric($id) || (int)$id <= 0) {
+            throw new LocalizedException(__('Invalid referred user id.'));
+        }
+        // The user type is validated to access the API.
+        if ($this->userContext->getUserType() != UserContextInterface::USER_TYPE_ADMIN) {
+            throw new AuthorizationException(__('Access denied.'));
+        }
+        // It's validated that the user has the permissions to access the referred users.
+        if (!$this->authorization->isAllowed('WolfSellers_ReferredUsers::referrals_view')) {
+            throw new AuthorizationException(__('You do not have permission to view referrals.'));
+        }
+        // The referred user's record is obtained and validated.
+        $referral = $this->referralFactory->create()->load($id);
+        if (!$referral->getId()) {
+            throw new LocalizedException(__('The referred user doesn\'t exist.'));
+        }
+        // The referred user is deleted.
+        return $referral;
     }
 
     /**

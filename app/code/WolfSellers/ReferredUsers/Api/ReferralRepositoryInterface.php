@@ -2,6 +2,7 @@
 namespace WolfSellers\ReferredUsers\Api;
 
 use Magento\Framework\Exception\LocalizedException;
+use WolfSellers\ReferredUsers\Api\Data\ReferralInterface;
 use WolfSellers\ReferredUsers\Api\Data\ReferralSearchResultsInterface;
 
 /**
@@ -19,6 +20,14 @@ interface ReferralRepositoryInterface
      * @throws LocalizedException
      */
     public function getListByCustomerId(int $customerId);
+
+    /**
+     * Get referral by ID.
+     * @param int $id
+     * @return ReferralInterface
+     * @throws LocalizedException
+     */
+    public function getById(int $id);
 
     /**
      * Delete record of referred user.
