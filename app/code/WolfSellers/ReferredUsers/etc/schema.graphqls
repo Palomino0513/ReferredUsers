@@ -1,0 +1,26 @@
+type ReferredUser {
+    entity_id: Int
+    firstname: String
+    lastname: String
+    email: String
+    phone: String
+    status: String
+    customer_id: Int
+}
+
+type ReferredUserResult {
+    items: [ReferredUser]
+}
+
+input ReferredUserFilterInput {
+    customer_id: FilterEqualTypeInput
+    firstname: FilterMatchTypeInput
+    lastname: FilterMatchTypeInput
+    email: FilterMatchTypeInput
+    phone: FilterMatchTypeInput
+    status: FilterEqualTypeInput
+}
+
+extend type Query {
+    referidos(filter: ReferredUserFilterInput): ReferredUserResult @resolver(class: "WolfSellers\\ReferredUsers\\Model\\Resolver\\ReferredUsers")
+}
