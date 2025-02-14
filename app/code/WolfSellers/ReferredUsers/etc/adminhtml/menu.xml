@@ -1,0 +1,17 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Menu/etc/menu.xsd">
+    <menu>
+        <add id="WolfSellers_ReferredUsers::main_menu"
+             title="WolfSellers"
+             module="WolfSellers_ReferredUsers"
+             sortOrder="60"
+             resource="WolfSellers_ReferredUsers::main_menu" />
+
+        <add id="WolfSellers_ReferredUsers::referrals"
+             title="Referral Management"
+             module="WolfSellers_ReferredUsers"
+             sortOrder="10"
+             action="wolf/referrals/index"
+             parent="WolfSellers_ReferredUsers::main_menu"
+             resource="WolfSellers_ReferredUsers::referred_users" />
+    </menu>
+</config>

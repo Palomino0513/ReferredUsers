@@ -1,0 +1,112 @@
+<form class="dragdrop" method="post" action="<?php echo $this->getUrl("wolf/import/save");?>"  enctype="multipart/form-data">
+    <div>
+        <input type="checkbox" name="DeletePositionExists" > Mark this check to delete existing routes to load new information
+    </div>
+    <div class="dragdrop__input">
+
+        <?php echo $this->getBlockHtml('formkey')?>
+
+        <input id="file" name="files[]" type="file" class="dragdrop__file" accept=".csv">
+
+        <label class="dragdrop__label" for="file">
+            <span class="dragdrop__choose-file"><?= __('Choose a file from your computer') ?></span>
+        </label>
+    </div>
+
+    <button type="submit" class="dragdrop__button button primary"><?= __('Import') ?></button>
+</form>
+
+<script>
+    require(['jquery', 'jquery/ui'], function($) {
+        $( document ).ready(function() {
+
+            $("input[type='checkbox'][name='DeletePositionExists']").on("change", function(){
+
+                let checkboxDropRoutes = $(this).is(':checked');
+
+                if( checkboxDropRoutes ){
+                    alert('By marking this checkbox, the values contained in the routing table will be replaced by the values contained in your CSV file');
+                }
+
+            })
+
+
+            let forms = document.querySelectorAll('.dragdrop');
+
+            Array.prototype.forEach.call(forms, function(form) {
+
+                let input = form.querySelector('input[type="file"]');
+                let label = form.querySelector('label');
+
+                const showFile = function(file) {
+                    label.textContent = file.name;
+                }
+
+                input.addEventListener('change', function(event) {
+                    let file = event.target.files || event.dataTransfer.files;
+                    showFile(file[0]);
+                });
+
+            });
+
+        });
+    });
+</script>
+
+<style>
+    .dragdrop {
+        position: relative;
+        padding: 100px 20px;
+        text-align: center;
+        font-size: 1.6rem;
+        outline: 2px dashed #e3e3e3;
+        outline-offset: -10px;
+        -webkit-transition: outline-offset .15s ease-in-out, background-color .15s linear;
+        transition: outline-offset .15s ease-in-out, background-color .15s linear;
+    }
+
+    .dragdrop.dragdrop--is-dragover {
+        outline-offset: -20px;
+        outline-color: #e3e3e3;
+        background-color: #f8f8f8;
+    }
+
+    .dragdrop__input {
+        margin-bottom: 2rem;
+    }
+
+    .dragdrop__button {
+        font-size: 1.6rem;
+        padding: 1rem 2em 1rem;
+    }
+
+    .dragdrop__file {
+        width: 0.1px;
+        height: 0.1px;
+        opacity: 0;
+        overflow: hidden;
+        position: absolute;
+        z-index: -1;
+    }
+
+    .dragdrop__file + .dragdrop__label {
+        max-width: 100%;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        cursor: pointer;
+        display: inline-block;
+        overflow: hidden;
+    }
+
+    .dragdrop__file + .dragdrop__label:hover .dragdrop__choose-file,
+    .dragdrop__file:focus + .dragdrop__label .dragdrop__choose-file,
+    .dragdrop__file.has-focus + .dragdrop__label .dragdrop__choose-file {
+        text-decoration: underline;
+    }
+
+    .dragdrop__file:focus + .dragdrop__label,
+    .dragdrop__file.has-focus + .dragdrop__label {
+        outline: 1px dotted #000;
+        outline: -webkit-focus-ring-color auto 5px;
+    }
+</style>

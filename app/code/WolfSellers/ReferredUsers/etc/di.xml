@@ -8,4 +8,11 @@
             <argument name="authorization" xsi:type="object">Magento\Framework\AuthorizationInterface</argument>
         </arguments>
     </type>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="wolfsellers_referredusers_referrals_listing_data_source" xsi:type="string">WolfSellers\ReferredUsers\Model\Referrals\ListCollection</item>
+            </argument>
+        </arguments>
+    </type>
 </config>
