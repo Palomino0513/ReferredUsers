@@ -1,6 +1,7 @@
 <?php
 namespace WolfSellers\ReferredUsers\Api;
 
+use Magento\Framework\Api\SearchCriteriaInterface;
 use Magento\Framework\Exception\LocalizedException;
 use WolfSellers\ReferredUsers\Api\Data\ReferralInterface;
 use WolfSellers\ReferredUsers\Api\Data\ReferralSearchResultsInterface;
@@ -37,4 +38,12 @@ interface ReferralRepositoryInterface
      * @throws LocalizedException
      */
     public function delete(int $referralId);
+
+    /**
+     * Search referred users by attributes.
+     *
+     * @param SearchCriteriaInterface $searchCriteria
+     * @return ReferralInterface[]
+     */
+    public function search(SearchCriteriaInterface $searchCriteria);
 }

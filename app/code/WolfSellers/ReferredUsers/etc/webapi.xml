@@ -21,4 +21,11 @@
             <resource ref="WolfSellers_ReferredUsers::referrals_view"/>
         </resources>
     </route>
+    <!-- Endpoint to search by attribute of the referred users -->
+    <route url="/V1/referral/search" method="GET">
+        <service class="WolfSellers\ReferredUsers\Api\ReferralRepositoryInterface" method="search"/>
+        <resources>
+            <resource ref="WolfSellers_ReferredUsers::referrals_view"/>
+        </resources>
+    </route>
 </routes>

@@ -3,6 +3,7 @@
 namespace WolfSellers\ReferredUsers\Model;
 
 use Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface;
+use Magento\Framework\Api\SearchCriteriaInterface;
 use Magento\Framework\Exception\AuthorizationException;
 use Magento\Authorization\Model\UserContextInterface;
 use Magento\Framework\AuthorizationInterface;
@@ -151,5 +152,37 @@ class ReferralRepository implements ReferralRepositoryInterface
         // The referred user is deleted.
         $referral->delete();
         return true;
+    }
+
+    /**
+     * Search referred users by attributes.
+     *
+     * @param SearchCriteriaInterface $searchCriteria
+     * @return ReferralInterface[]
+     */
+    public function search(SearchCriteriaInterface $searchCriteria): array
+    {
+        $collection = $this->referralCollectionFactory->create();
+
+        foreach ($searchCriteria->getFilterGroups() as $group) {
+            foreach ($group->getFilters() as $filter) {
+                $collection->addFieldToFilter($filter->getField(), [$filter->getConditionType() => $filter->getValue()]);
+            }
+        }
+
+        $result = [];
+        foreach ($collection as $item) {
+            $referral = $this->referralFactory->create();
+            $referral->setId($item->getId());
+            $referral->setFirstName($item->getFirstName());
+            $referral->setLastName($item->getLastName());
+            $referral->setCustomerId($item->getCustomerId());
+            $referral->setEmail($item->getEmail());
+            $referral->setPhone($item->getPhone());
+            $referral->setStatus($item->getStatus());
+            $result[] = $referral;
+        }
+
+        return $result;
     }
 }
